@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Mr.Barber Booking</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#111;
+color:white;
+text-align:center;
+margin:0;
+}
+
+header{
+background:orange;
+padding:15px;
+font-size:22px;
+font-weight:bold;
+}
+
+.box{
+background:#222;
+padding:20px;
+margin:20px auto;
+width:300px;
+border-radius:10px;
+}
+
+input,select,button{
+width:90%;
+padding:10px;
+margin:5px;
+font-size:16px;
+border:none;
+border-radius:5px;
+}
+
+button{
+background:orange;
+font-weight:bold;
+}
+
+#msg{
+margin:20px;
+font-size:18px;
+color:lightgreen;
+}
+
+footer{
+background:#000;
+padding:10px;
+margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+Mr.Barber Smart Booking
+</header>
+
+
+<div class="box">
+
+<input id="name" placeholder="Your Name">
+
+<select id="shop">
+
+<option>Ravi Salon</option>
+<option>Star Barber</option>
+<option>Modern Cuts</option>
+
+</select>
+
+
+<select id="time">
+
+<option>10:00</option>
+<option>10:30</option>
+<option>11:00</option>
+<option>11:30</option>
+<option>12:00</option>
+
+</select>
+
+<button onclick="book()">Book Now</button>
+
+</div>
+
+
+<div id="msg"></div>
+
+
+<footer>
+No Waiting • Smart Booking • Mr.Barber
+</footer>
+
+
+<script>
+
+
+let bookings = [];
+
+let shops = [
+"Ravi Salon",
+"Star Barber",
+"Modern Cuts"
+];
+
+let times = [
+"10:00",
+"10:30",
+"11:00",
+"11:30",
+"12:00"
+];
+
+
+
+function book(){
+
+let name =
+document.getElementById("name").value;
+
+let shop =
+document.getElementById("shop").value;
+
+let time =
+document.getElementById("time").value;
+
+let key = shop + "-" + time;
+
+
+
+if(bookings.includes(key)){
+
+suggest(shop,time);
+
+}else{
+
+bookings.push(key);
+
+document.getElementById("msg").innerHTML =
+"✅ Booked at " + shop + " at " + time;
+
+}
+
+}
+
+
+
+function suggest(shop,time){
+
+
+// try other time
+
+for(let t of times){
+
+let k = shop + "-" + t;
+
+if(!bookings.includes(k)){
+
+document.getElementById("msg").innerHTML =
+"Busy 😒 Try " + t + " at " + shop;
+
+return;
+
+}
+
+}
+
+
+// try other shop
+
+for(let s of shops){
+
+for(let t of times){
+
+let k = s + "-" + t;
+
+if(!bookings.includes(k)){
+
+document.getElementById("msg").innerHTML =
+"Rush ⚡ Try " + s + " at " + t;
+
+return;
+
+}
+
+}
+
+}
+
+
+document.getElementById("msg").innerHTML =
+"All shops full 💀 Try later";
+
+}
+
+
+</script>
+
+</body>
+</html>
